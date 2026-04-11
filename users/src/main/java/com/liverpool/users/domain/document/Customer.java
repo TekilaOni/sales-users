@@ -3,7 +3,6 @@ package com.liverpool.users.domain.document;
 import com.liverpool.users.domain.valueobject.Email;
 import com.liverpool.users.domain.valueobject.ShippingAddress;
 import jakarta.validation.constraints.NotBlank;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
