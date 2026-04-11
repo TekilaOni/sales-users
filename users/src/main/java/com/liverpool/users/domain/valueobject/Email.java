@@ -1,5 +1,6 @@
 package com.liverpool.users.domain.valueobject;
 
+import com.liverpool.users.domain.util.DomainValidator;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -18,12 +19,8 @@ public class Email {
     }
 
     public static Email of(String value) {
-        if(value == null || value.isBlank()){
-            throw new IllegalArgumentException("Correo electronico obligatorio para registro");
-        }
-        if(!value.matches("^[\\w.+\\-]+@[\\w\\-]+\\.[a-z]{2,}$")){
-            throw new IllegalArgumentException("Formato del correo electronico invalido: "+ value);
-        }
+        DomainValidator.validateNotBlank(value,"Correo electronico obligatorio para registro");
+        DomainValidator.validatePattern(value,"^[\\w.+\\-]+@[\\w\\-]+\\.[a-z]{2,}$","Formato del correo electronico invalido: "+ value);
         return new Email(value.toLowerCase().trim());
     }
 
