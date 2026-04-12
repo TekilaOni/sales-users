@@ -14,6 +14,6 @@ import java.util.List;
 public class OrderRequestDto {
 
     private String customerId;
-    private List<OrderItemRequest> items;
+    private List<OrderItemRequestDto> items;
 
 }

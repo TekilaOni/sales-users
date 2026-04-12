@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderItemRequest {
+public class OrderItemRequestDto {
 
     @NotBlank(message = "El id del producto no puede estar vacio")
     private String productId;
