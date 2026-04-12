@@ -3,6 +3,7 @@ package com.liverpool.users.domain.valueobject;
 import com.liverpool.users.domain.util.DomainValidator;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import org.springframework.data.annotation.PersistenceCreator;
 
 @Getter
 @EqualsAndHashCode
@@ -10,6 +11,7 @@ public class Email {
 
     private final String value;
 
+    @PersistenceCreator
     private Email(String value) {
         this.value = value;
     }

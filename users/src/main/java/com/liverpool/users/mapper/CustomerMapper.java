@@ -11,7 +11,7 @@ import org.mapstruct.Mapping;
 public interface CustomerMapper {
 
     @Mapping(target = "email",source = "email.value")
-    @Mapping(target = "shippingAddressDto", source = "shippingAddress")
+    @Mapping(target = "shippingAddress", source = "shippingAddress")
     CustomerResponseDto toResponseDto(Customer customer);
 
     @Mapping(target = "street", source = "street")

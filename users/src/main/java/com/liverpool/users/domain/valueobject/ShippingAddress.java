@@ -3,6 +3,7 @@ package com.liverpool.users.domain.valueobject;
 import com.liverpool.users.domain.util.DomainValidator;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import org.springframework.data.annotation.PersistenceCreator;
 
 @Getter
 @EqualsAndHashCode
@@ -14,6 +15,7 @@ public class ShippingAddress {
     private final String zipCode;
     private final String country;
 
+    @PersistenceCreator
     private ShippingAddress(
             String street,
             String city,
