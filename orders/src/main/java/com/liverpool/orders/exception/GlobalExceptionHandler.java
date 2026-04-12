@@ -66,7 +66,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidStatusTransitionException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_CONTENT)
-    public Map<String,String> handleInvalidStatusException(DuplicateResourceException ex){
+    public Map<String,String> handleInvalidStatusException(InvalidStatusTransitionException ex){
         return Map.of("status","422",
                 "errorMessage","UNPROCESSABLE_CONTENT",
                 "message",ex.getMessage()
