@@ -6,6 +6,7 @@ import com.liverpool.users.domain.valueobject.ShippingAddress;
 import com.liverpool.users.dto.request.CustomerRequestDto;
 import com.liverpool.users.dto.response.CustomerResponseDto;
 import com.liverpool.users.exception.DuplicateResourceException;
+import com.liverpool.users.exception.ResourceNotFoundException;
 import com.liverpool.users.mapper.CustomerMapper;
 import com.liverpool.users.repository.CustomerRepository;
 import com.liverpool.users.service.CustomerService;
@@ -46,5 +47,11 @@ public class CustomerServiceImpl implements CustomerService {
                 .build();
 
         return customerMapper.toResponseDto(customerRepository.save(customer));
+    }
+
+    @Override
+    public CustomerResponseDto findById(String id) {
+        return customerRepository.findById(id).map(customerMapper::toResponseDto)
+                .orElseThrow(()->new ResourceNotFoundException("Cliente no encontrado con id: "+id));
     }
 }
