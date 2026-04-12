@@ -11,7 +11,6 @@ import com.liverpool.products.exception.ResourceNotFoundException;
 import com.liverpool.products.mapper.ProductMapper;
 import com.liverpool.products.repository.ProductRepository;
 import com.liverpool.products.service.ProductService;
-import org.apache.coyote.http11.filters.VoidInputFilter;
 import org.springframework.stereotype.Service;
 
 @Service
