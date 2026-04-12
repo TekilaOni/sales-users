@@ -16,6 +16,7 @@ public class CustomerRequestDto {
     @NotBlank(message = "El nombre no puede estar vacio")
     private String firstName;
 
+    @NotBlank(message = "el primer apellido no puede estar vacio")
     private String lastName;
 
     private String secondLastName;

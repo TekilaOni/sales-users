@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
 
-@Document(collation = "customers")
+@Document(collection = "customers")
 @Builder
 @Data
 public class Customer {

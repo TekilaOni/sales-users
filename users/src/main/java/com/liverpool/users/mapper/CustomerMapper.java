@@ -11,7 +11,7 @@ import org.mapstruct.Mapping;
 public interface CustomerMapper {
 
     @Mapping(target = "email",source = "email.value")
-    @Mapping(target = "shippingAddress", source = "shippingAddress")
+    @Mapping(target = "shippingAddressDto", source = "shippingAddress")
     CustomerResponseDto toResponseDto(Customer customer);
 
     @Mapping(target = "street", source = "street")
@@ -25,7 +25,7 @@ public interface CustomerMapper {
     @Mapping(target = "id",ignore = true)
     @Mapping(target = "email",ignore = true)
     @Mapping(target = "shippingAddress", ignore = true)
-    @Mapping(target = "createdAt",ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "createdDate",ignore = true)
+    @Mapping(target = "lastModifiedDate", ignore = true)
     Customer toDocument(CustomerRequestDto customerRequestDto);
 }
