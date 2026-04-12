@@ -3,6 +3,7 @@ package com.liverpool.users.domain.document;
 import com.liverpool.users.domain.valueobject.Email;
 import com.liverpool.users.domain.valueobject.ShippingAddress;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -12,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.time.LocalDateTime;
 
 @Document(collation = "customers")
+@Builder
 public class Customer {
 
     @Id
