@@ -1,6 +1,6 @@
 package com.liverpool.orders.exception;
 
-import com.liverpool.products.exception.ResourceNotFoundException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -60,6 +60,15 @@ public class GlobalExceptionHandler {
     public Map<String,String> handleDuplicateException(DuplicateResourceException ex){
         return Map.of("status","409",
                 "errorMessage","CONFLICT",
+                "message",ex.getMessage()
+        );
+    }
+
+    @ExceptionHandler(InvalidStatusTransitionException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_CONTENT)
+    public Map<String,String> handleInvalidStatusException(DuplicateResourceException ex){
+        return Map.of("status","422",
+                "errorMessage","UNPROCESSABLE_CONTENT",
                 "message",ex.getMessage()
         );
     }
