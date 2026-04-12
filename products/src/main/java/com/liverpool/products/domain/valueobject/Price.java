@@ -23,7 +23,7 @@ public class Price {
         this.amount = null;
     }
 
-    public Price of(BigDecimal amount) {
+    public static Price of(BigDecimal amount) {
         DomainValidator.validateNotNull(amount,"El precio es obligatorio");
         DomainValidator.validateNotNegative(amount,BigDecimal.ZERO,"El precio no puede ser negativo");
         return new Price(amount);

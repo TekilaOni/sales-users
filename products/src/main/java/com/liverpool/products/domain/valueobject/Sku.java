@@ -20,7 +20,7 @@ public class Sku {
         this.value = null;
     }
 
-    private static Sku of(String value) {
+    public static Sku of(String value) {
         DomainValidator.validateNotBlank(value, "El Sku es obligatorio para el registro");
         DomainValidator.validatePattern(value,"^[A-Z0-9\\-]{6,20}$","El SKU debe tener entre 6 y 20 caracteres en mayúsculas");
         return new Sku(value.toUpperCase().trim());
