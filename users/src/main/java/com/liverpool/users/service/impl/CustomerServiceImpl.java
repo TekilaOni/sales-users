@@ -81,4 +81,12 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setShippingAddress(newAddress);
         return customerMapper.toResponseDto(customerRepository.save(customer));
     }
+
+    @Override
+    public void deleteCustomer(String id) {
+        if(!customerRepository.existsById(id)){
+            throw new ResourceNotFoundException("Cliente no encontrado con id: "+id);
+        }
+        customerRepository.deleteById(id);
+    }
 }
