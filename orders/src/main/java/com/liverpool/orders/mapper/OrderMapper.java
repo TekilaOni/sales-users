@@ -12,7 +12,7 @@ import org.mapstruct.Mapping;
 public interface OrderMapper {
 
     @Mapping(target = "total", source = "price.amount")
-    @Mapping(target = "status", expression = "java(order.getStatus().getName())")
+    @Mapping(target = "status", expression = "java(order.getStatus().name())")
     @Mapping(target = "items", source = "items")
     OrderResponseDto toResponseDto(Order order);
 

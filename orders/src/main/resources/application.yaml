@@ -6,7 +6,7 @@ spring:
   mongodb:
     host: 127.0.0.1
     port: 27017
-    database: db_users
+    database: db_orders
     username: admin
     password: password123
     authentication-database: admin

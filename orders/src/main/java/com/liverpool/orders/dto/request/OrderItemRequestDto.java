@@ -33,4 +33,7 @@ public class OrderItemRequestDto {
 
     @NotNull(message = "El precio unitario no puede estar vacio")
     private BigDecimal unitPrice;
+
+    @NotNull(message = "El subtotal no puede estar vacio")
+    private BigDecimal subTotal;
 }
