@@ -46,7 +46,7 @@ public class OrderController {
         return orderService.findById(id);
     }
 
-    @GetMapping("/orderNumber/{id}")
+    @GetMapping("/orderNumber/{orderNumber}")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Busqueda de orden", description = "Busca orden por medio de numero de orden")
     @ApiResponses(value = {
