@@ -1,6 +1,6 @@
 package com.liverpool.orders.domain.valueobject;
 
-import com.liverpool.products.domain.util.DomainValidator;
+import com.liverpool.orders.domain.util.DomainValidator;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.data.annotation.PersistenceCreator;
