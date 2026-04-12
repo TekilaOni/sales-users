@@ -19,6 +19,7 @@
         <module>users</module>
         <module>products</module>
         <module>orders</module>
+        <module>aggregator</module>
     </modules>
 
     <properties>

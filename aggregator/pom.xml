@@ -10,7 +10,15 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>orders</artifactId>
+	<artifactId>aggregator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
 
 </project>

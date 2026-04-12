@@ -13,6 +13,4 @@
 	<artifactId>products</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<!-- sin dependencias extra — todo viene del parent -->
-
 </project>
