@@ -22,7 +22,7 @@ public class ProductRequestDto {
     private String sku;
 
     @NotBlank(message = "El nombre del producto no puede estar vacio")
-    private String productName;
+    private String name;
 
     @NotBlank(message = "La descripcion del producto no puede estar vacia")
     private String description;

@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
                 "message",ex.getMessage()
         );
     }
-    
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String,Object> handleValidationException(MethodArgumentNotValidException ex){
@@ -42,6 +42,24 @@ public class GlobalExceptionHandler {
         return Map.of("status","400",
                 "errorMessage","BAD REQUEST",
                 "message",badFields
+        );
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String,String> handleNotFoundException(ResourceNotFoundException ex){
+        return Map.of("status","404",
+                "errorMessage","NOT FOUND",
+                "message",ex.getMessage()
+        );
+    }
+
+    @ExceptionHandler(DuplicateResourceException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public Map<String,String> handleDuplicateException(DuplicateResourceException ex){
+        return Map.of("status","409",
+                "errorMessage","CONFLICT",
+                "message",ex.getMessage()
         );
     }
 }
