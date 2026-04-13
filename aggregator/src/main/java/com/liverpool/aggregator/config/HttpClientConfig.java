@@ -1,6 +1,8 @@
 package com.liverpool.aggregator.config;
 
 import com.liverpool.aggregator.client.CustomerClient;
+import com.liverpool.aggregator.client.OrderClient;
+import com.liverpool.aggregator.client.ProductClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,20 @@ public class HttpClientConfig {
     @Value("${services.orders.url}")
     private String ordersUrl;
 
+    @Bean
+    public CustomerClient customerClient() {
+        return buildClient(usersUrl,CustomerClient.class);
+    }
+
+    @Bean
+    public ProductClient productClient() {
+        return buildClient(productsUrl,ProductClient.class);
+    }
+
+    @Bean
+    public OrderClient orderClient() {
+        return buildClient(ordersUrl,OrderClient.class);
+    }
 
     private <T> T buildClient(String url, Class<T> clientClass) {
         RestClient restClient = RestClient.builder()
