@@ -43,18 +43,18 @@ services:
 
   users-service:
     build:
-      context: .
+      context: ./users
       dockerfile: Dockerfile
     container_name: users-service
     ports:
       - "8080:8080"
     environment:
-      SPRING_MONGODB_HOST: mongodb_server        # ← SPRING_MONGODB no SPRING_DATA_MONGODB
-      SPRING_MONGODB_PORT: 27017
-      SPRING_MONGODB_DATABASE: db_users
-      SPRING_MONGODB_USERNAME: admin
-      SPRING_MONGODB_PASSWORD: password123
-      SPRING_MONGODB_AUTHENTICATION_DATABASE: admin
+      SPRING_DATA_MONGODB_HOST: mongodb_server
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_DATABASE: db_users
+      SPRING_DATA_MONGODB_USERNAME: admin
+      SPRING_DATA_MONGODB_PASSWORD: password123
+      SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE: admin
     networks:
       - liverpool-network
     depends_on:
@@ -68,18 +68,18 @@ services:
 
   products-service:
     build:
-      context: .
+      context: ./products
       dockerfile: Dockerfile
     container_name: products-service
     ports:
       - "8081:8081"
     environment:
-      SPRING_MONGODB_HOST: mongodb_server
-      SPRING_MONGODB_PORT: 27017
-      SPRING_MONGODB_DATABASE: db_products
-      SPRING_MONGODB_USERNAME: admin
-      SPRING_MONGODB_PASSWORD: password123
-      SPRING_MONGODB_AUTHENTICATION_DATABASE: admin
+      SPRING_DATA_MONGODB_HOST: mongodb_server
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_DATABASE: db_products
+      SPRING_DATA_MONGODB_USERNAME: admin
+      SPRING_DATA_MONGODB_PASSWORD: password123
+      SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE: admin
       SERVER_PORT: 8081
     networks:
       - liverpool-network
@@ -94,18 +94,18 @@ services:
 
   orders-service:
     build:
-      context: .
+      context: ./orders
       dockerfile: Dockerfile
     container_name: orders-service
     ports:
       - "8082:8082"
     environment:
-      SPRING_MONGODB_HOST: mongodb_server
-      SPRING_MONGODB_PORT: 27017
-      SPRING_MONGODB_DATABASE: db_orders
-      SPRING_MONGODB_USERNAME: admin
-      SPRING_MONGODB_PASSWORD: password123
-      SPRING_MONGODB_AUTHENTICATION_DATABASE: admin
+      SPRING_DATA_MONGODB_HOST: mongodb_server
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_DATABASE: db_orders
+      SPRING_DATA_MONGODB_USERNAME: admin
+      SPRING_DATA_MONGODB_PASSWORD: password123
+      SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE: admin
       SERVER_PORT: 8082
     networks:
       - liverpool-network
@@ -120,7 +120,7 @@ services:
 
   aggregator-service:
     build:
-      context: .
+      context: ./aggregator
       dockerfile: Dockerfile
     container_name: aggregator-service
     ports:
