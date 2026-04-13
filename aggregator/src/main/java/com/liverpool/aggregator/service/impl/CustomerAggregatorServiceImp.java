@@ -6,7 +6,6 @@ import com.liverpool.aggregator.dto.customer.response.CustomerResponseDto;
 import com.liverpool.aggregator.service.CustomerAggregatorService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class CustomerAggregatorServiceImp implements CustomerAggregatorService {
