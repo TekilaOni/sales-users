@@ -12,6 +12,7 @@ import com.liverpool.aggregator.dto.order.response.OrderResponseDto;
 import com.liverpool.aggregator.dto.product.response.ProductResponseDto;
 import com.liverpool.aggregator.service.CustomerAggregatorService;
 import com.liverpool.aggregator.service.OrderAggregatorService;
+import com.liverpool.aggregator.service.ProductAggregatorService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -22,12 +23,12 @@ import java.util.List;
 public class OrderAggregatorServiceImpl implements OrderAggregatorService {
 
     private final CustomerAggregatorService customerAggregatorService;
-    private final ProductClient productClient;
+    private final ProductAggregatorService productAggregatorService;
     private final OrderClient orderClient;
 
-    public OrderAggregatorServiceImpl(CustomerAggregatorService customerAggregatorService, ProductClient productClient, OrderClient orderClient) {
+    public OrderAggregatorServiceImpl(CustomerAggregatorService customerAggregatorService, ProductAggregatorService productAggregatorService, OrderClient orderClient) {
         this.customerAggregatorService = customerAggregatorService;
-        this.productClient = productClient;
+        this.productAggregatorService = productAggregatorService;
         this.orderClient = orderClient;
     }
 
@@ -37,7 +38,7 @@ public class OrderAggregatorServiceImpl implements OrderAggregatorService {
         CustomerResponseDto customer = customerAggregatorService.findById(request.getCustomerId());
         List<OrderItemRequestDto> validatedItems = request.getItems().stream().map(
                 item -> {
-                    ProductResponseDto product = productClient.get(item.getProductId());
+                    ProductResponseDto product = productAggregatorService.findById(item.getProductId());
                     if (product.stock() < item.getQuantity()) {
                         throw new IllegalArgumentException(
                                 "Stock insuficiente para: " + product.name() +
