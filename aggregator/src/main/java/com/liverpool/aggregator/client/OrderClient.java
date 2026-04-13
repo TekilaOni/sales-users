@@ -1,5 +1,6 @@
 package com.liverpool.aggregator.client;
 
+import com.liverpool.aggregator.dto.order.request.OrderRequestDto;
 import com.liverpool.aggregator.dto.order.response.OrderResponseDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +13,7 @@ import org.springframework.web.service.annotation.PostExchange;
 public interface OrderClient {
 
     @PostExchange
-    OrderResponseDto create(@RequestBody Object request);
+    OrderResponseDto create(@RequestBody OrderRequestDto request);
 
     @GetMapping("/orderNumber/{orderNumber}")
     OrderResponseDto getOrderByOrderNumber(@PathVariable String orderNumber);
@@ -21,5 +22,5 @@ public interface OrderClient {
     OrderResponseDto getOrderById(@PathVariable String id);
 
     @PatchExchange("/{id}/status")
-    OrderResponseDto updateStatus(@PathVariable String id, @RequestBody Object request);
+    OrderResponseDto updateStatus(@PathVariable String id, @RequestBody OrderRequestDto request);
 }
