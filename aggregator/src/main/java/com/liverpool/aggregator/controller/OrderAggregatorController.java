@@ -1,10 +1,10 @@
-package com.liverpool.orders.controller;
+package com.liverpool.aggregator.controller;
 
-import com.liverpool.orders.domain.valueobject.OrderStatus;
-import com.liverpool.orders.dto.request.OrderRequestDto;
-import com.liverpool.orders.dto.request.OrderStatusRequestDto;
-import com.liverpool.orders.dto.response.OrderResponseDto;
-import com.liverpool.orders.service.OrderService;
+import com.liverpool.aggregator.dto.CreateOrderRequest;
+import com.liverpool.aggregator.dto.order.request.OrderRequestDto;
+import com.liverpool.aggregator.dto.order.request.OrderStatusRequestDto;
+import com.liverpool.aggregator.dto.order.response.OrderResponseDto;
+import com.liverpool.aggregator.service.OrderAggregatorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/orders")
 @Tag(name = "Orders", description = "Gestion de Ordenes de venta")
-public class OrderController {
 
-    private final OrderService orderService;
+public class OrderAggregatorController {
 
-    OrderController(OrderService orderService) {
-        this.orderService = orderService;
+    private final OrderAggregatorService orderAggregatorService;
+
+    public OrderAggregatorController(OrderAggregatorService orderAggregatorService) {
+        this.orderAggregatorService = orderAggregatorService;
     }
 
     @PostMapping
@@ -31,8 +32,8 @@ public class OrderController {
             @ApiResponse(responseCode = "201", description = "Orden creada de forma exitosa"),
             @ApiResponse(responseCode = "400", description = "Datos invalidos"),
     })
-    public OrderResponseDto createOrder(@Valid @RequestBody OrderRequestDto request) {
-        return orderService.createOrder(request);
+    public OrderResponseDto createCustomer(@Valid @RequestBody CreateOrderRequest request) {
+        return orderAggregatorService.createOrder(request);
     }
 
     @GetMapping("/{id}")
@@ -43,18 +44,7 @@ public class OrderController {
             @ApiResponse(responseCode = "404", description = "Orden no encontrada")
     })
     public OrderResponseDto getOrderById(@PathVariable("id") String id) {
-        return orderService.findById(id);
-    }
-
-    @GetMapping("/orderNumber/{orderNumber}")
-    @ResponseStatus(HttpStatus.OK)
-    @Operation(summary = "Busqueda de orden", description = "Busca orden por medio de numero de orden")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Orden encontrada"),
-            @ApiResponse(responseCode = "404", description = "Orden no encontrada")
-    })
-    public OrderResponseDto getOrderByOrderNumber(@PathVariable("orderNumber") String orderNumber) {
-        return orderService.findByOrderNumber(orderNumber);
+        return orderAggregatorService.findById(id);
     }
 
     @PatchMapping("/{id}/status")
@@ -68,7 +58,7 @@ public class OrderController {
     public OrderResponseDto updateStatus(
             @PathVariable String id,
             @Valid @RequestBody OrderStatusRequestDto request) {
-        return orderService.updateStatus(id, request);
+        return orderAggregatorService.updateStatus(id, request);
     }
 
 }
