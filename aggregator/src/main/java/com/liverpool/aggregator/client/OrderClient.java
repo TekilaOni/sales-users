@@ -1,6 +1,7 @@
 package com.liverpool.aggregator.client;
 
 import com.liverpool.aggregator.dto.order.request.OrderRequestDto;
+import com.liverpool.aggregator.dto.order.request.OrderStatusRequestDto;
 import com.liverpool.aggregator.dto.order.response.OrderResponseDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,5 +23,5 @@ public interface OrderClient {
     OrderResponseDto getOrderById(@PathVariable String id);
 
     @PatchExchange("/{id}/status")
-    OrderResponseDto updateStatus(@PathVariable String id, @RequestBody OrderRequestDto request);
+    OrderResponseDto updateStatus(@PathVariable String id, @RequestBody OrderStatusRequestDto request);
 }
