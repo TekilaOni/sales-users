@@ -10,6 +10,7 @@ import com.liverpool.aggregator.dto.order.request.OrderRequestDto;
 import com.liverpool.aggregator.dto.order.request.OrderStatusRequestDto;
 import com.liverpool.aggregator.dto.order.response.OrderResponseDto;
 import com.liverpool.aggregator.dto.product.response.ProductResponseDto;
+import com.liverpool.aggregator.service.CustomerAggregatorService;
 import com.liverpool.aggregator.service.OrderAggregatorService;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +21,12 @@ import java.util.List;
 @Service
 public class OrderAggregatorServiceImpl implements OrderAggregatorService {
 
-    private final CustomerClient customerClient;
+    private final CustomerAggregatorService customerAggregatorService;
     private final ProductClient productClient;
     private final OrderClient orderClient;
 
-    public OrderAggregatorServiceImpl(CustomerClient customerClient, ProductClient productClient, OrderClient orderClient) {
-        this.customerClient = customerClient;
+    public OrderAggregatorServiceImpl(CustomerAggregatorService customerAggregatorService, ProductClient productClient, OrderClient orderClient) {
+        this.customerAggregatorService = customerAggregatorService;
         this.productClient = productClient;
         this.orderClient = orderClient;
     }
@@ -33,7 +34,7 @@ public class OrderAggregatorServiceImpl implements OrderAggregatorService {
     @Override
     public OrderResponseDto createOrder(CreateOrderRequest request) {
 
-        CustomerResponseDto customer = customerClient.get(request.getCustomerId());
+        CustomerResponseDto customer = customerAggregatorService.findById(request.getCustomerId());
         List<OrderItemRequestDto> validatedItems = request.getItems().stream().map(
                 item -> {
                     ProductResponseDto product = productClient.get(item.getProductId());
