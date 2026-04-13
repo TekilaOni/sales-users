@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class CustomerAggregatorServiceImp implements CustomerAggregatorService {
+public class CustomerAggregatorServiceImpl implements CustomerAggregatorService {
 
     private final CustomerClient customerClient;
 
-    CustomerAggregatorServiceImp(CustomerClient customerClient) {
+    CustomerAggregatorServiceImpl(CustomerClient customerClient) {
         this.customerClient = customerClient;
     }
 
