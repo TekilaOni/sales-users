@@ -1,4 +1,7 @@
 version: '3.8'
+networks:
+  liverpool-network:
+    driver: bridge
 
 services:
   mongodb:
@@ -12,6 +15,13 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password123
     volumes:
       - mongo_data:/data/db
+    networks:
+      - liverpool-network
+    healthcheck:
+      test: ["CMD", "mongosh", "-u", "admin", "-p", "password123", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   mongo-express:
     image: mongo-express:latest
@@ -25,8 +35,115 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://admin:password123@mongodb:27017/
       ME_CONFIG_BASICAUTH_USERNAME: admin
       ME_CONFIG_BASICAUTH_PASSWORD: password12345
+    networks:
+      - liverpool-network
     depends_on:
-      - mongodb
+      mongodb:
+        condition: service_healthy
+
+  users-service:
+    build:
+      context: ./users
+      dockerfile: Dockerfile
+    container_name: users-service
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_MONGODB_HOST: mongodb_server        # ← SPRING_MONGODB no SPRING_DATA_MONGODB
+      SPRING_MONGODB_PORT: 27017
+      SPRING_MONGODB_DATABASE: db_users
+      SPRING_MONGODB_USERNAME: admin
+      SPRING_MONGODB_PASSWORD: password123
+      SPRING_MONGODB_AUTHENTICATION_DATABASE: admin
+    networks:
+      - liverpool-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/actuator/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  products-service:
+    build:
+      context: ./products
+      dockerfile: Dockerfile
+    container_name: products-service
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_MONGODB_HOST: mongodb_server
+      SPRING_MONGODB_PORT: 27017
+      SPRING_MONGODB_DATABASE: db_products
+      SPRING_MONGODB_USERNAME: admin
+      SPRING_MONGODB_PASSWORD: password123
+      SPRING_MONGODB_AUTHENTICATION_DATABASE: admin
+      SERVER_PORT: 8081
+    networks:
+      - liverpool-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8081/actuator/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  orders-service:
+    build:
+      context: ./orders
+      dockerfile: Dockerfile
+    container_name: orders-service
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_MONGODB_HOST: mongodb_server
+      SPRING_MONGODB_PORT: 27017
+      SPRING_MONGODB_DATABASE: db_orders
+      SPRING_MONGODB_USERNAME: admin
+      SPRING_MONGODB_PASSWORD: password123
+      SPRING_MONGODB_AUTHENTICATION_DATABASE: admin
+      SERVER_PORT: 8082
+    networks:
+      - liverpool-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8082/actuator/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  aggregator-service:
+    build:
+      context: ./aggregator
+      dockerfile: Dockerfile
+    container_name: aggregator-service
+    ports:
+      - "8085:8085"
+    environment:
+      SERVER_PORT: 8085
+      SERVICES_USERS_URL: http://users-service:8080
+      SERVICES_PRODUCTS_URL: http://products-service:8081
+      SERVICES_ORDERS_URL: http://orders-service:8082
+    networks:
+      - liverpool-network
+    depends_on:
+      users-service:
+        condition: service_healthy
+      products-service:
+        condition: service_healthy
+      orders-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8085/actuator/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
 
 volumes:
   mongo_data:
