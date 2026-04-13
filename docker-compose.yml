@@ -43,7 +43,7 @@ services:
 
   users-service:
     build:
-      context: ./users
+      context: .
       dockerfile: Dockerfile
     container_name: users-service
     ports:
@@ -68,7 +68,7 @@ services:
 
   products-service:
     build:
-      context: ./products
+      context: .
       dockerfile: Dockerfile
     container_name: products-service
     ports:
@@ -94,7 +94,7 @@ services:
 
   orders-service:
     build:
-      context: ./orders
+      context: .
       dockerfile: Dockerfile
     container_name: orders-service
     ports:
@@ -120,7 +120,7 @@ services:
 
   aggregator-service:
     build:
-      context: ./aggregator
+      context: .
       dockerfile: Dockerfile
     container_name: aggregator-service
     ports:
