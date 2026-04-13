@@ -4,7 +4,7 @@ spring:
   application:
     name: users
   mongodb:
-    host: 127.0.0.1
+    host: mongodb_server
     port: 27017
     database: db_users
     username: admin
