@@ -133,12 +133,9 @@ services:
     networks:
       - liverpool-network
     depends_on:
-      users-service:
-        condition: service_healthy
-      products-service:
-        condition: service_healthy
-      orders-service:
-        condition: service_healthy
+      - users-service
+      - products-service
+      - orders-service
  #   healthcheck:
   #    test: ["CMD", "wget", "--spider", "-q", "http://localhost:8085/actuator/health"]
    #   interval: 15s
