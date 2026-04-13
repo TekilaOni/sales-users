@@ -1,6 +1,6 @@
 package com.liverpool.aggregator.dto.order.request;
 
-import com.liverpool.orders.domain.valueobject.OrderStatus;
+import com.liverpool.aggregator.enums.OrderStatus;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

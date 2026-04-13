@@ -78,7 +78,7 @@ public class GlobalHandlerException {
         return Map.of(
                 "status",  "500",
                 "error",   "INTERNAL SERVER ERROR",
-                "message", "Error inesperado"
+                "message", e.getMessage()
         );
     }
 }

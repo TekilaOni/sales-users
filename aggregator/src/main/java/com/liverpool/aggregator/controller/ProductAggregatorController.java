@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/customers")
+@RequestMapping("/api/products")
 @Tag(name = "Products", description = "Gestión de productos desde aggregator")
 public class ProductAggregatorController {
 
